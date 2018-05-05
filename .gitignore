@@ -61,4 +61,4 @@ typings/
 .next
 
 # application data
-exercise-01/data/todos.db
+exercise-0*/data/todos.db
