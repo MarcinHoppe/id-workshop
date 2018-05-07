@@ -1,5 +1,5 @@
 function addAnonymousUser(req, res, next) {
-  req.user = req.user || 'anonymous';
+  req.user = req.user || { username: 'anonymous' };
   next();
 }
 

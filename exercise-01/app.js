@@ -1,5 +1,8 @@
 const createError = require('http-errors');
 const express = require('express');
+const session = require('express-session');
+const passport = require('passport');
+const bcrypt = require('bcryptjs');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
@@ -9,6 +12,8 @@ const anonymousAuth = require('./middleware/anonymousAuth');
 
 const indexRouter = require('./routes/index');
 const todoRouter = require('./routes/todo');
+const signupRouter = require('./routes/signup');
+const loginRouter = require('./routes/login');
 const healthCheckRouter = require('./routes/healthcheck');
 const apiRouter = require('./api/todo');
 
@@ -29,6 +34,8 @@ app.use(anonymousAuth);
 
 app.use('/', indexRouter);
 app.use('/todo', todoRouter);
+app.use('/signup', signupRouter);
+app.use('/login', loginRouter);
 app.use('/check', healthCheckRouter);
 app.use('/api', apiRouter);
 
