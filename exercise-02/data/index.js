@@ -3,9 +3,14 @@ const _ = require('lodash');
 const Datastore = require('nedb');
 
 const todosDb = new Datastore({
-    filename: path.join(__dirname, 'todos.db'),
-    autoload: true
-  });
+  filename: path.join(__dirname, 'todos.db'),
+  autoload: true
+});
+
+const usersDb = new Datastore({
+  filename: path.join(__dirname, 'users.db'),
+  autoload: true
+});
 
 function add(user, todo, cb) {
   todosDb.findOne({ user }, (err, doc) => {
@@ -76,9 +81,33 @@ function remove(user, cb) {
   });
 }
 
+function store(user, cb) {
+  usersDb.update({ user_id: user.user_id }, user, { upsert: true }, (err) => {
+    if (err) {
+      return cb(err);
+    }
+    cb();
+  });
+}
+
+function user(user_id, cb) {
+  usersDb.findOne({ user_id }, (err, doc) => {
+    if (err) {
+      return cb(err);
+    }
+    if (!doc) {
+      return cb(null, false);
+    }
+
+    cb(null, doc);
+  });
+}
+
 module.exports = {
   add,
   all,
   done,
-  remove
+  remove,
+  store,
+  user
 };

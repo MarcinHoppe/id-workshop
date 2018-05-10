@@ -62,4 +62,4 @@ typings/
 
 # application data
 exercise-0*/data/todos.db
-exercise-01/data/users.db
+exercise-0*/data/users.db

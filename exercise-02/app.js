@@ -1,6 +1,9 @@
 const createError = require('http-errors');
 const express = require('express');
+const session = require('express-session');
+const passport = require('passport');
 const path = require('path');
+const process = require('process');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
@@ -9,6 +12,7 @@ const anonymousAuth = require('./middleware/anonymousAuth');
 
 const indexRouter = require('./routes/index');
 const todoRouter = require('./routes/todo');
+const loginRouter = require('./routes/login');
 const healthCheckRouter = require('./routes/healthcheck');
 const apiRouter = require('./api/todo');
 
@@ -24,11 +28,38 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(session({
+  secret: 's3cr3t',
+  cookie: {
+    httpOnly: true,
+    sameSite: 'lax',
+    // We really should be setting this!
+    // secure: true,
+  },
+  name: 'id-workshop-session-cookie',
+  resave: false,
+  saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+const db = require('./data');
+
+passport.serializeUser((user, cb) => {
+  cb(null, user.user_id);
+});
+
+passport.deserializeUser((user_id, cb) => {
+  db.user(user_id, (err, user) => cb(err, user));
+});
+
 // add anonymous user
 app.use(anonymousAuth);
 
 app.use('/', indexRouter);
 app.use('/todo', todoRouter);
+app.use('/login', loginRouter);
 app.use('/check', healthCheckRouter);
 app.use('/api', apiRouter);
 

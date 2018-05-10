@@ -14,7 +14,7 @@ router.post('/', (req, res, next) => {
     return next(new Error('Cannot add an empty todo item to the database.'));
   }
 
-  db.add(req.user, req.body.todo, (err) => {
+  db.add(req.user.user_id, req.body.todo, (err) => {
     if (err) {
       return next(err);
     }
@@ -40,7 +40,7 @@ router.post('/done', (req, res, next) => {
     uri: apiUrl(req),
     method: 'POST',
     json: {
-      user: req.user,
+      user: req.user.user_id,
       id,
     },
   };
