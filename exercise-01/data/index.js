@@ -87,7 +87,6 @@ function register(login, hash, cb) {
       return cb(err);
     }
     if (doc) {
-      console.log(doc);
       return cb(null, false);
     }
     
