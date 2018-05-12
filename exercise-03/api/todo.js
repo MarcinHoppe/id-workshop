@@ -1,4 +1,6 @@
 const express = require('express');
+const passport = require('passport');
+const _ = require('lodash');
 const db = require('../data');
 
 const router = express.Router();
