@@ -81,7 +81,7 @@ db.register(req.body.login, hash, (err, ok) => {
     return next(err);
   }
   if (!ok) {
-    return next(new Error(`User ${login} already exists`));
+    return next(new Error(`User ${req.body.login} already exists`));
   }
 
   res.redirect('/login');
