@@ -19,7 +19,7 @@
     "nedb": "^1.8.0",
     "passport": "^0.4.0",
     "passport-auth0": "^0.6.1",
-    "request": "^2.85.0",
+    "request": "^2.86.0",
     "uid-safe": "^2.1.5"
   }
 }
