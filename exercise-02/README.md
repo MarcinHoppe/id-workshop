@@ -1,4 +1,4 @@
-# Exercise 01
+# Exercise 02
 
 The goal of this exercise is to implement federated login using [Passport.js](http://www.passportjs.org/) and [Auth0](https://auth0.com).
 
