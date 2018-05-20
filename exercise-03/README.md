@@ -1,4 +1,4 @@
-# Exercise 01
+# Exercise 03
 
 The goal of this exercise is to implement access control to a REST API using OAuth 2.0 access tokens.
 
