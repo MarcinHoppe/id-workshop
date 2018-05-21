@@ -112,7 +112,7 @@ router.post('/', (req, res, next) => {
           return next(new Error(`User ${req.body.login} already exists`));
         }
         
-        res.redirect('/');
+        res.redirect('/login');
       });
     });
   });
