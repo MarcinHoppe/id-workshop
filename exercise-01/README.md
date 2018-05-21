@@ -265,6 +265,7 @@ Add logout handler (`app.js`):
 ```javascript
 app.get('/logout', (req, res) => {
   req.logout();
+  res.clearCookie('id-workshop-session-cookie');
   res.redirect('/login');
 });
 ```
